@@ -98,9 +98,8 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        PickedCity.shared.cityId = searchResults[indexPath.row].id
         tableView.deselectRow(at: indexPath, animated: true)
-        let city = searchResults[indexPath.row]
-        PickedCity.pickedCity = searchResults[indexPath.row].id
         let weatherDetailViewController = WeatherDetailViewController()
         navigationController?.pushViewController(weatherDetailViewController, animated: true)
     }

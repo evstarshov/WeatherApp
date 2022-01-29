@@ -65,7 +65,7 @@ final class CityCell: UITableViewCell {
     private func configureUI() {
         self.addTitleLabel()
         self.addSubtitleLabel()
-        self.addTemperatureLabel()
+        self.addCounrtyLabel()
     }
     
     private func addTitleLabel() {
@@ -86,7 +86,7 @@ final class CityCell: UITableViewCell {
             ])
     }
     
-    private func addTemperatureLabel() {
+    private func addCounrtyLabel() {
         self.contentView.addSubview(self.countryLabel)
         NSLayoutConstraint.activate([
             self.countryLabel.topAnchor.constraint(equalTo: self.subtitleLabel.bottomAnchor, constant: 4.0),

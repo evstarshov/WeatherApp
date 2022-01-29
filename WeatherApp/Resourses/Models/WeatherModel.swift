@@ -4,6 +4,9 @@
 //  Created by Евгений Старшов on 29.01.2022.
 //
 
+
+
+// MARK: - Welcome
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
@@ -11,14 +14,16 @@
 
 import Foundation
 
+
 // MARK: - Welcome
-struct WeatherModel: Codable {
+struct Welcome: Codable {
     let coord: Coord
     let weather: [Weather]
     let base: String
     let main: Main
     let visibility: Int
     let wind: Wind
+    let snow: Snow?
     let clouds: Clouds
     let dt: Int
     let sys: Sys
@@ -39,8 +44,7 @@ struct Coord: Codable {
 
 // MARK: - Main
 struct Main: Codable {
-    let temp, feelsLike: Int
-    let tempMin, tempMax: Double
+    let temp, feelsLike, tempMin, tempMax: Double
     let pressure, humidity, seaLevel, grndLevel: Int
 
     enum CodingKeys: String, CodingKey {
@@ -51,6 +55,15 @@ struct Main: Codable {
         case pressure, humidity
         case seaLevel = "sea_level"
         case grndLevel = "grnd_level"
+    }
+}
+
+// MARK: - Snow
+struct Snow: Codable {
+    let the1H: Double
+
+    enum CodingKeys: String, CodingKey {
+        case the1H = "1h"
     }
 }
 
@@ -79,6 +92,7 @@ struct Wind: Codable {
     let deg: Int
     let gust: Double
 }
+
 
 struct ErrorMessage: Codable {
     let message: String

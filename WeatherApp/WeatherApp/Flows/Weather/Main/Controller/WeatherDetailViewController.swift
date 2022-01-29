@@ -9,20 +9,19 @@ import UIKit
 
 final class WeatherDetailViewController: UIViewController {
     
-    
     lazy var headerViewController = WeatherHeaderViewController()
     //lazy var descroptionView = DescriptionViewContrioller(app: self.app)
 
     
-//    init(city: WeatherModel) {
-//        self.city = city
+//    init(weather: WeatherModel?) {
+//        self.weather = weather
 //        super.init(nibName: nil, bundle: nil)
 //    }
 //
 //    required init?(coder aDecoder: NSCoder) {
 //        fatalError("init(coder:) has not been implemented")
 //    }
-    
+//    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()

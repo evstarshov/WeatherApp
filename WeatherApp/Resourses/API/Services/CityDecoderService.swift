@@ -8,9 +8,9 @@
 import Foundation
 
 final class PickedCity {
-    static var pickedCity: Int?
-    private init(pickedCity: Int?) {
-    }
+    static let shared = PickedCity()
+    var cityId: Int = 0
+    private init() {}
 }
 
 

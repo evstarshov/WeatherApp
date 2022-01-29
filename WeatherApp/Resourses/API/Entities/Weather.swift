@@ -7,6 +7,9 @@
 
 import Foundation
 
+class WeatherResponse: Decodable {
+    let list: WeatherEntitie
+}
 
 public class WeatherEntitie: Decodable {
     
