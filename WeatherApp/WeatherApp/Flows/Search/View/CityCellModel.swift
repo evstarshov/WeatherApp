@@ -12,7 +12,7 @@ import Foundation
 struct CityCellModel {
     let title: String
     let subtitle: String?
-    let temperature: String?
+    let country: String?
 }
 
 final class CityCellModelFactory {
@@ -20,6 +20,6 @@ final class CityCellModelFactory {
     static func cellModel(from model: CityModel) -> CityCellModel {
         return CityCellModel(title: model.name,
                              subtitle: model.state,
-                             temperature: model.country)
+                             country: model.country)
     }
 }

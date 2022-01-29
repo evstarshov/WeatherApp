@@ -7,3 +7,9 @@
 
 import Foundation
 
+final class WeatherService {
+    
+    
+    
+
+}

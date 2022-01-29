@@ -28,7 +28,7 @@ final class CityCell: UITableViewCell {
         return label
     }()
     
-    private(set) lazy var temperatureLabel: UILabel = {
+    private(set) lazy var countryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .lightGray
@@ -53,13 +53,13 @@ final class CityCell: UITableViewCell {
     func configure(with cellModel: CityCellModel) {
         self.titleLabel.text = cellModel.title
         self.subtitleLabel.text = cellModel.subtitle
-        self.temperatureLabel.text = cellModel.temperature
+        self.countryLabel.text = cellModel.country
     }
     
     // MARK: - UI
     
     override func prepareForReuse() {
-        [self.titleLabel, self.subtitleLabel, self.temperatureLabel].forEach { $0.text = nil }
+        [self.titleLabel, self.subtitleLabel, self.countryLabel].forEach { $0.text = nil }
     }
     
     private func configureUI() {
@@ -87,11 +87,11 @@ final class CityCell: UITableViewCell {
     }
     
     private func addTemperatureLabel() {
-        self.contentView.addSubview(self.temperatureLabel)
+        self.contentView.addSubview(self.countryLabel)
         NSLayoutConstraint.activate([
-            self.temperatureLabel.topAnchor.constraint(equalTo: self.subtitleLabel.bottomAnchor, constant: 4.0),
-            self.temperatureLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12.0),
-            self.temperatureLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -40.0)
+            self.countryLabel.topAnchor.constraint(equalTo: self.subtitleLabel.bottomAnchor, constant: 4.0),
+            self.countryLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12.0),
+            self.countryLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -40.0)
             ])
     }
 }

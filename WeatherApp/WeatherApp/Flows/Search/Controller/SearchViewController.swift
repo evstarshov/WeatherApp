@@ -18,7 +18,7 @@ final class SearchViewController: UIViewController {
     }
     
     private var cities = [CityModel]()
-    private var searchResults = [CityModel(id: 25464, name: "Test", state: "Test", country: "Test", coord: Coord(lon: 12.12, lat: 33.112))]
+    private var searchResults = [CityModel]()
     
     private struct Constants {
         static let reuseIdentifier = "reuseID"
@@ -99,10 +99,10 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let app = searchResults[indexPath.row]
-//        let appDetaillViewController = AppDetailViewController()
-//        appDetaillViewController.app = app
-//        navigationController?.pushViewController(appDetaillViewController, animated: true)
+        let city = searchResults[indexPath.row]
+        PickedCity.pickedCity = searchResults[indexPath.row].id
+        let weatherDetailViewController = WeatherDetailViewController()
+        navigationController?.pushViewController(weatherDetailViewController, animated: true)
     }
 }
 

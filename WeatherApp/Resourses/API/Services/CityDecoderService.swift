@@ -7,6 +7,12 @@
 
 import Foundation
 
+final class PickedCity {
+    static var pickedCity: Int?
+    private init(pickedCity: Int?) {
+    }
+}
+
 
 final class CityDecoder {
 
