@@ -36,7 +36,7 @@ final class WeatherHeaderViewController: UIViewController {
         getWeather(cityid: cityId)
     }
     
-    func getWeather(cityid: Int) {
+   private func getWeather(cityid: Int) {
         var url = URL(string: "https://api.openweathermap.org/data/2.5/weather?id=\(cityid)&units=metric&appid=5b7a9e1cab4da31edb65f3a31877ef3d")
         if degrees == .celsium {
         url = URL(string: "https://api.openweathermap.org/data/2.5/weather?id=\(cityid)&units=metric&appid=5b7a9e1cab4da31edb65f3a31877ef3d")

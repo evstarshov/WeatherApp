@@ -12,13 +12,15 @@ final class SearchViewController: UIViewController {
     // MARK: - Private Properties
     
     private let cityDecoder = CityDecoder()
+    private let cityCareTaker = CityCaretaker()
     
     private var searchView: SearchCityHeaderView {
         return self.view as! SearchCityHeaderView
     }
     
-    private var cities = [CityModel]()
-    private var searchResults = [CityModel]()
+    private var cities: [CityModel] = []
+    private var searchResults: [CityModel] = []
+    private var savedCities: [CityModel] = []
     
     private struct Constants {
         static let reuseIdentifier = "reuseID"
@@ -33,6 +35,7 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchResults = cityCareTaker.retrieveCities()
         cityDecoder.getCities { [weak self] cities in
             self?.cities = cities
         }
@@ -41,6 +44,7 @@ final class SearchViewController: UIViewController {
         self.searchView.tableView.register(CityCell.self, forCellReuseIdentifier: Constants.reuseIdentifier)
         self.searchView.tableView.delegate = self
         self.searchView.tableView.dataSource = self
+        self.searchView.tableView.reloadData()
     }
     
     // MARK: - Private
@@ -100,6 +104,8 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         PickedCity.shared.cityId = searchResults[indexPath.row].id
         tableView.deselectRow(at: indexPath, animated: true)
+        savedCities.append(searchResults[indexPath.row])
+        cityCareTaker.save(cities: savedCities)
         let weatherDetailViewController = WeatherDetailViewController()
         navigationController?.pushViewController(weatherDetailViewController, animated: true)
     }
