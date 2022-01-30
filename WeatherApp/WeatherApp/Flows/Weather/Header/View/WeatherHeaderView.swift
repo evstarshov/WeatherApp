@@ -49,8 +49,9 @@ final class WeatherHeaderView: UIView {
     private(set) lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .lightGray
-        label.font = UIFont.boldSystemFont(ofSize: 20.0)
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 16.0)
+        label.numberOfLines = 20
         return label
     }()
     
@@ -98,7 +99,7 @@ final class WeatherHeaderView: UIView {
             
             self.descriptionLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 24.0),
             self.descriptionLabel.leftAnchor.constraint(equalTo: self.imageView.leftAnchor),
-            self.descriptionLabel.widthAnchor.constraint(equalToConstant: 100.0),
+            self.descriptionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5.0),
             
             self.descriptionLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])

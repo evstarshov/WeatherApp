@@ -14,18 +14,7 @@ final class WeatherHeaderViewController: UIViewController {
     private var weatherDetailHeaderView: WeatherHeaderView {
         return self.view as! WeatherHeaderView
     }
-    
-    // MARK: - Init
-    
-    //    init(weather: WeatherModel) {
-    //        self.weather = weather
-    //        super.init(nibName: nil, bundle: nil)
-    //    }
-    //
-    //    required init?(coder aDecoder: NSCoder) {
-    //        fatalError("init(coder:) has not been implemented")
-    //    }
-    
+
     // MARK: - Lifecycle
     
     override func loadView() {
@@ -54,9 +43,12 @@ final class WeatherHeaderViewController: UIViewController {
                 do {
                     let weatherInfo = try decoder.decode(Welcome.self, from: data)
                     print("Decoding city \(weatherInfo.name)")
+                    let welcome = weatherInfo
+                    let main = weatherInfo.main
+                    let weather = weatherInfo.weather?.last
                     self.weatherDetailHeaderView.titleLabel.text = weatherInfo.name
                     self.weatherDetailHeaderView.subtitleLabel.text = "Temperature: \(Int(weatherInfo.main?.temp ?? 0)) C°"
-                    self.weatherDetailHeaderView.descriptionLabel.text = weatherInfo.weather?.last?.weatherDescription
+                    self.weatherDetailHeaderView.descriptionLabel.text = "Now in \(welcome.name) \(welcome.sys?.country ?? "") is \(weather?.weatherDescription ?? "")\nWind: is \(weatherInfo.wind?.speed ?? 0) ms\nPressure: \(main?.pressure ?? 0)mm\nHumidity: \(main?.humidity ?? 0)\nMin temperature: \(Int(main?.tempMin ?? 0))\nMax temperature \(Int(main?.tempMax ?? 0))"
                 } catch {
                     print("Decoding error \(error)")
                 }
