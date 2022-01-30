@@ -10,18 +10,7 @@ import UIKit
 final class WeatherDetailViewController: UIViewController {
     
     lazy var headerViewController = WeatherHeaderViewController()
-    //lazy var descroptionView = DescriptionViewContrioller(app: self.app)
-
-    
-//    init(weather: WeatherModel?) {
-//        self.weather = weather
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
@@ -32,7 +21,6 @@ final class WeatherDetailViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white;
         self.navigationItem.largeTitleDisplayMode = .never
         self.addHeaderViewController()
-        //self.addDescriptionViewController()
     }
     
     private func addHeaderViewController() {

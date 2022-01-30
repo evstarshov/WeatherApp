@@ -40,9 +40,10 @@ final class WeatherHeaderView: UIView {
     private(set) lazy var changeDegrees: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("C / F", for: .normal)
+        button.setTitle("Metric / Imperial", for: .normal)
         button.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
         button.layer.cornerRadius = 16.0
+        button.addTarget(self, action: #selector(changeTemperatureButton), for: .touchUpInside)
         return button
     }()
     
@@ -54,6 +55,11 @@ final class WeatherHeaderView: UIView {
         label.numberOfLines = 20
         return label
     }()
+    
+    private enum State {
+        case metric
+        case fahrenheit
+    }
     
     
     // MARK: - Init
@@ -94,7 +100,7 @@ final class WeatherHeaderView: UIView {
             
             self.changeDegrees.leftAnchor.constraint(equalTo: self.imageView.rightAnchor, constant: 16.0),
             self.changeDegrees.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor),
-            self.changeDegrees.widthAnchor.constraint(equalToConstant: 80.0),
+            self.changeDegrees.widthAnchor.constraint(equalToConstant: 140.0),
             self.changeDegrees.heightAnchor.constraint(equalToConstant: 32.0),
             
             self.descriptionLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 24.0),
@@ -103,6 +109,11 @@ final class WeatherHeaderView: UIView {
             
             self.descriptionLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
+    }
+    
+    @objc func changeTemperatureButton(sender: UIButton!) {
+        print("Button tapped")
+        NotificationCenter.default.post(name: .notificationFromTButton, object: nil)
     }
 }
 
