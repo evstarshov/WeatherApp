@@ -34,6 +34,7 @@ final class WeatherHeaderView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 14.0)
+        label.numberOfLines = 2
         return label
     }()
     

@@ -58,8 +58,8 @@ final class WeatherHeaderViewController: UIViewController {
                     let main = weatherInfo.main
                     let weather = weatherInfo.weather?.last
                     self.weatherDetailHeaderView.titleLabel.text = weatherInfo.name
-                    self.weatherDetailHeaderView.subtitleLabel.text = "Temperature: \(Int(weatherInfo.main?.temp ?? 0)) C°"
-                    self.weatherDetailHeaderView.descriptionLabel.text = "Now in \(welcome.name) \(welcome.sys?.country ?? "") is \(weather?.weatherDescription ?? "")\nWind is \(weatherInfo.wind?.speed ?? 0) ms\nPressure: \(main?.pressure ?? 0)mm\nHumidity: \(main?.humidity ?? 0) \nMin temperature: \(Int(main?.tempMin ?? 0)) C°\nMax temperature \(Int(main?.tempMax ?? 0)) C°"
+                    self.weatherDetailHeaderView.subtitleLabel.text = "Temperature: \(Int(weatherInfo.main?.temp ?? 0)) C°\nFeels like \(Int(main?.feelsLike ?? 0)) C°"
+                    self.weatherDetailHeaderView.descriptionLabel.text = "Now in \(welcome.name) \(welcome.sys?.country ?? "") is \(weather?.weatherDescription ?? "")\nWind is \(weatherInfo.wind?.speed ?? 0) ms\nPressure: \(main?.pressure ?? 0)mm\nHumidity: \(main?.humidity ?? 0)% \nMin temperature: \(Int(main?.tempMin ?? 0)) C°\nMax temperature \(Int(main?.tempMax ?? 0)) C°"
                     self.weatherDetailHeaderView.imageView.image = UIImage(named: weather?.icon ?? "unknown")
                 } catch {
                     print("Decoding error \(error)")
@@ -87,7 +87,7 @@ final class WeatherHeaderViewController: UIViewController {
                         let main = weatherInfo.main
                         let weather = weatherInfo.weather?.last
                         self.weatherDetailHeaderView.titleLabel.text = weatherInfo.name
-                        self.weatherDetailHeaderView.subtitleLabel.text = "Temperature: \(Int(weatherInfo.main?.temp ?? 0)) F°"
+                        self.weatherDetailHeaderView.subtitleLabel.text = "Temperature: \(Int(weatherInfo.main?.temp ?? 0)) F°\nFeels like \(Int(main?.feelsLike ?? 0)) F°"
                         self.weatherDetailHeaderView.descriptionLabel.text = "Now in \(welcome.name) \(welcome.sys?.country ?? "") is \(weather?.weatherDescription ?? "")\nWind is \(weatherInfo.wind?.speed ?? 0) fs\nPressure: \(main?.pressure ?? 0)mm\nHumidity: \(main?.humidity ?? 0)\nMin temperature: \(Int(main?.tempMin ?? 0)) F°\nMax temperature \(Int(main?.tempMax ?? 0)) F°"
                         self.weatherDetailHeaderView.imageView.image = UIImage(named: weather?.icon ?? "unknown")
                     } catch {
