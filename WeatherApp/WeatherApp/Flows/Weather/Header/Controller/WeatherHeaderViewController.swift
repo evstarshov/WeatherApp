@@ -11,10 +11,6 @@ final class WeatherHeaderViewController: UIViewController {
     
     // MARK: - Properties
     
-    
-    
-    private var weatherService = WeatherService()
-    
     private var weatherDetailHeaderView: WeatherHeaderView {
         return self.view as! WeatherHeaderView
     }
@@ -43,14 +39,8 @@ final class WeatherHeaderViewController: UIViewController {
         getWeather(cityid: cityId)
     }
     
-//    func showAlert(message: String) {
-//        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
-//    }
-    
-    func getWeather(cityid: Int) {
-        let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?id=\(cityid)&appid=5b7a9e1cab4da31edb65f3a31877ef3d")
+    private func getWeather(cityid: Int) {
+        let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?id=\(cityid)&units=metric&appid=5b7a9e1cab4da31edb65f3a31877ef3d")
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration)
         let task = session.dataTask(with: url!) { (data, response, error) in
@@ -61,17 +51,20 @@ final class WeatherHeaderViewController: UIViewController {
             
             DispatchQueue.main.async {
                 
-            do {
-            let weatherInfo = try decoder.decode(Welcome.self, from: data)
-                print("Decoding city \(weatherInfo.name)")
-                self.weatherDetailHeaderView.titleLabel.text =  weatherInfo.name
-            } catch {
-                print("Decoding error \(error)")
+                do {
+                    let weatherInfo = try decoder.decode(Welcome.self, from: data)
+                    print("Decoding city \(weatherInfo.name)")
+                    self.weatherDetailHeaderView.titleLabel.text = weatherInfo.name
+                    self.weatherDetailHeaderView.subtitleLabel.text = "Temperature: \(Int(weatherInfo.main?.temp ?? 0)) C°"
+                    self.weatherDetailHeaderView.descriptionLabel.text = weatherInfo.weather?.last?.weatherDescription
+                } catch {
+                    print("Decoding error \(error)")
+                }
             }
-            }
-    }
+        }
         task.resume()
     }
+    
     
 }
 
