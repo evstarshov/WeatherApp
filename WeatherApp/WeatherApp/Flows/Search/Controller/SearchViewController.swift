@@ -59,24 +59,17 @@ final class SearchViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    private func showNoResults() {
-        self.searchView.emptyResultView.isHidden = false
-    }
-    
-    private func hideNoResults() {
-        self.searchView.emptyResultView.isHidden = true
-    }
-    
     private func requestCity(with query: String) {
         self.throbber(show: true)
         self.searchResults = cities.filter { $0.name == query }
+        if self.searchResults.isEmpty {
+            showAlert(message: "City not found")
+        }
         self.searchView.tableView.isHidden = false
         self.searchView.tableView.reloadData()
         self.searchView.searchBar.resignFirstResponder()
     }
-    
-    
-    
+
 }
 
 //MARK: - UITableViewDataSource

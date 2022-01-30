@@ -23,7 +23,7 @@ final class WeatherCaretaker {
         }
     }
     
-    func retrieveCities() -> [Welcome] {
+    func retrieveWeather() -> [Welcome] {
         guard let data = UserDefaults.standard.data(forKey: key) else {
             return []
         }

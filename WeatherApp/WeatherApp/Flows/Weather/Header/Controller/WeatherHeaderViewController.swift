@@ -16,7 +16,10 @@ final class WeatherHeaderViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let weatherCaretaker = WeatherCaretaker()
+    
     private var degrees: Degrees = .celsium
+    private var savedWeather = [Welcome]()
     
     private var weatherDetailHeaderView: WeatherHeaderView {
         return self.view as! WeatherHeaderView
@@ -53,6 +56,8 @@ final class WeatherHeaderViewController: UIViewController {
                 do {
                     let weatherInfo = try decoder.decode(Welcome.self, from: data)
                     print("Decoding city \(weatherInfo.name)")
+                    self.savedWeather.append(weatherInfo)
+                    self.weatherCaretaker.save(weather: self.savedWeather)
                     let welcome = weatherInfo
                     let main = weatherInfo.main
                     let weather = weatherInfo.weather?.last
@@ -81,6 +86,8 @@ final class WeatherHeaderViewController: UIViewController {
                     do {
                         let weatherInfo = try decoder.decode(Welcome.self, from: data)
                         print("Decoding city \(weatherInfo.name)")
+                        self.savedWeather.append(weatherInfo)
+                        self.weatherCaretaker.save(weather: self.savedWeather)
                         let welcome = weatherInfo
                         let main = weatherInfo.main
                         let weather = weatherInfo.weather?.last
