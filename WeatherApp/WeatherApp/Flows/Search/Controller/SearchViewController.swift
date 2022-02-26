@@ -12,13 +12,15 @@ final class SearchViewController: UIViewController {
     // MARK: - Private Properties
     
     private let cityDecoder = CityDecoder()
+    private let cityCareTaker = CityCaretaker()
     
     private var searchView: SearchCityHeaderView {
         return self.view as! SearchCityHeaderView
     }
     
-    private var cities = [CityModel]()
-    private var searchResults = [CityModel]()
+    private var cities: [CityModel] = []
+    private var searchResults: [CityModel] = []
+    private var savedCities: [CityModel] = []
     
     private struct Constants {
         static let reuseIdentifier = "reuseID"
@@ -33,6 +35,7 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchResults = cityCareTaker.retrieveCities()
         cityDecoder.getCities { [weak self] cities in
             self?.cities = cities
         }
@@ -41,6 +44,7 @@ final class SearchViewController: UIViewController {
         self.searchView.tableView.register(CityCell.self, forCellReuseIdentifier: Constants.reuseIdentifier)
         self.searchView.tableView.delegate = self
         self.searchView.tableView.dataSource = self
+        self.searchView.tableView.reloadData()
     }
     
     // MARK: - Private
@@ -49,30 +53,23 @@ final class SearchViewController: UIViewController {
         UIApplication.shared.isNetworkActivityIndicatorVisible = show
     }
     
-    func showAlert(message: String) {
+    private func showAlert(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
-    private func showNoResults() {
-        self.searchView.emptyResultView.isHidden = false
-    }
-    
-    private func hideNoResults() {
-        self.searchView.emptyResultView.isHidden = true
-    }
-    
     private func requestCity(with query: String) {
         self.throbber(show: true)
         self.searchResults = cities.filter { $0.name == query }
+        if self.searchResults.isEmpty {
+            showAlert(message: "City not found")
+        }
         self.searchView.tableView.isHidden = false
         self.searchView.tableView.reloadData()
         self.searchView.searchBar.resignFirstResponder()
     }
-    
-    
-    
+
 }
 
 //MARK: - UITableViewDataSource
@@ -100,6 +97,8 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         PickedCity.shared.cityId = searchResults[indexPath.row].id
         tableView.deselectRow(at: indexPath, animated: true)
+        savedCities.append(searchResults[indexPath.row])
+        cityCareTaker.save(cities: savedCities)
         let weatherDetailViewController = WeatherDetailViewController()
         navigationController?.pushViewController(weatherDetailViewController, animated: true)
     }

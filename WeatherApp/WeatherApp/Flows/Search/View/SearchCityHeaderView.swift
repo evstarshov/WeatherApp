@@ -48,7 +48,7 @@ final class SearchCityHeaderView: UIView {
         self.tableView.rowHeight = 72.0
         self.tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 0.0)
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.isHidden = true
+        self.tableView.isHidden = false
         self.tableView.tableFooterView = UIView()
         self.addSubview(self.tableView)
     }
